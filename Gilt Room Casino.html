@@ -2434,11 +2434,12 @@ return{create}})();
 </script>
 <style>
 #gate{position:fixed;inset:0;z-index:9000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(10px,3vh,26px);overflow:hidden;
-  background:radial-gradient(ellipse at 50% 100%,#3a1550 0,#150a26 45%,#05030c 100%)}
+  background:linear-gradient(180deg,#02010a 0,#070a26 34%,#1c1440 52%,#4b2250 64%,#a34a63 71%,#e0845a 74%,#1a0f1c 74.2%,#07040c 100%)}
 #gate .stars{position:absolute;inset:0;pointer-events:none}
 #gate .stars i{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;opacity:.2;animation:gtw 3s ease-in-out infinite}
 @keyframes gtw{50%{opacity:.95}}
-#gate .moon{position:absolute;right:9%;top:8%;width:clamp(36px,7vw,70px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fffbe8,#e8dcae 60%,#a99a64);box-shadow:0 0 60px #fff4c855}
+#gate .vig{position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse at 50% 55%,transparent 45%,#000a 100%);transition:opacity .6s}#gate.open .vig{opacity:0}
+#gate .moon{position:absolute;right:9%;top:6%;width:clamp(36px,7vw,70px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fffbe8,#e8dcae 60%,#a99a64);box-shadow:0 0 60px #fff4c855}
 #gate .gtitle{position:relative;z-index:2;text-align:center;font-family:var(--ui);letter-spacing:.34em;text-transform:uppercase;font-size:clamp(11px,1.6vw,14px);color:#c9b57a;transition:opacity .5s}
 #gate .gz{position:relative;z-index:1;width:min(94vw,min(860px,calc((100vh - 190px)*1.54)));aspect-ratio:400/260;transform-origin:50% 61%;will-change:transform}
 #gate svg{width:100%;height:100%;display:block;overflow:visible}
@@ -2464,12 +2465,14 @@ body.gate-open .rail .game:nth-child(1){animation-delay:.2s}body.gate-open .rail
 @media (prefers-reduced-motion:reduce){#gate.open .gz{transition:none;transform:none}#gate .go,#gate .gb,#gate .stars i{animation:none}#gate.out{transition:opacity .3s}}
 
 #gate .pp{animation:ppw var(--dur) cubic-bezier(.3,.1,.9,.8) var(--dl) infinite both}
-@keyframes ppw{0%{transform:translate(200px,201px) scale(.6);opacity:0}6%{opacity:1}86%{opacity:1}100%{transform:translate(var(--ex),262px) scale(1.05);opacity:0}}
+@keyframes ppw{0%{transform:translate(200px,203px) scale(.72);opacity:0}6%{opacity:1}86%{opacity:1}100%{transform:translate(var(--ex),262px) scale(1.12);opacity:0}}
 #gate .lg,#gate .ar{transform-box:fill-box;transform-origin:50% 0;animation:ppl .55s ease-in-out infinite alternate}
 #gate .l2,#gate .a1{animation-direction:alternate-reverse}
 @keyframes ppl{from{transform:rotate(-24deg)}to{transform:rotate(24deg)}}
 #gate .bob{animation:ppb .275s ease-in-out infinite alternate}@keyframes ppb{to{transform:translateY(-1.3px)}}
-#gate .co{fill:var(--c)}#gate .pa{fill:var(--p)}#gate .hr{fill:var(--h)}#gate .sk{fill:var(--s)}
+#gate .co{fill:var(--c)}#gate .pa{fill:var(--p)}#gate .hr{fill:var(--h)}#gate .sk{fill:var(--s)}#gate .pp .co,#gate .pp .pa,#gate .pp .hr,#gate .pp .sk{stroke:#ffd9a0;stroke-opacity:.38;stroke-width:.5}
+#gate .rb{animation:rbl 5s ease-in-out infinite alternate}@keyframes rbl{to{opacity:.5}}
+#gate .pm{transform-box:fill-box;transform-origin:50% 100%;animation:pms 5s ease-in-out infinite alternate}@keyframes pms{to{transform:rotate(1.2deg)}}
 #gate .beam{transform-box:view-box;animation:bm 7s ease-in-out infinite alternate}
 #gate .beam.b2{animation-duration:9s;animation-direction:alternate-reverse}
 @keyframes bm{from{transform:rotate(-16deg)}to{transform:rotate(16deg)}}
@@ -2482,7 +2485,7 @@ body.gate-open .rail .game:nth-child(1){animation-delay:.2s}body.gate-open .rail
   if(location.hash==='#nogate')return;
   const g=document.createElement('div');g.id='gate';
   let stars='';for(let i=0;i<70;i++)stars+=`<i style="left:${Math.random()*100}%;top:${Math.random()*60}%;animation-delay:${(Math.random()*3).toFixed(2)}s"></i>`;
-  const people=[['#2b3a5a','#1d1d26','#2a1a10','#e0b08a',-34,9.5],['#8a1f3a','#2a2a36','#caa24a','#f1c9a5',38,9.8],['#d9d2c0','#3a3f55','#111','#a66f4a',-6,9.2]];
+  const people=[['#222c44','#14141c','#2a1a10','#c99870',-34,9.5],['#5e1426','#1c1c26','#c8a050','#e8bf9a',38,9.8],['#b8b2a2','#2a2e40','#0e0e0e','#8a5a3c',-6,9.2]];
   const ppl=people.map(([c,p,h,sk,dx,dur],i)=>{const F=i===1;return `<g class="pp" style="--c:${c};--p:${p};--h:${h};--s:${sk};--ex:${200+dx}px;--dur:${dur+3}s;--dl:${-[0.8,4.6,8.4][i]}s"><g class="bob"><ellipse cx="0" cy="1" rx="11" ry="2.6" fill="#000" opacity=".5"/>
   <g class="lg l1"><rect class="pa" x="-5.8" y="-41" width="5.4" height="39" rx="2.4"/><rect x="-5.8" y="-41" width="5.4" height="39" rx="2.4" fill="url(#gtSh)"/><path d="M-7.6 -3H.8V0Q.8 1.6-.8 1.6H-6Q-7.6 1.6-7.6 0Z" fill="#0b0b0f"/></g>
   <g class="lg l2"><rect class="pa" x=".4" y="-41" width="5.4" height="39" rx="2.4"/><rect x=".4" y="-41" width="5.4" height="39" rx="2.4" fill="url(#gtSh)"/><path d="M-1 -3H7.4V0Q7.4 1.6 5.8 1.6H0Q-1 1.6-1 0Z" fill="#0b0b0f"/></g>
@@ -2498,58 +2501,65 @@ body.gate-open .rail .game:nth-child(1){animation-delay:.2s}body.gate-open .rail
   <path class="hr" d="M-5.8 -79Q-6.2 -86 0 -86Q6.2 -86 5.8 -79Q3 -82.4 0 -82Q-3 -82.4 -5.8 -79Z"/>
   ${F?'<path class="hr" d="M-5.8 -79Q-8.4 -70 -4.6 -64Q-4 -72 -4.6 -79Z"/><path class="hr" d="M5.8 -79Q8.4 -70 4.6 -64Q4 -72 4.6 -79Z"/>':''}
   <path d="M-8 -69H8" stroke="#fff" stroke-opacity=".25" stroke-width="1"/></g></g>`}).join('');
-  let slots='';for(let i=0;i<16;i++){const x=158+i*5.8,y=172+(i%3)*4;slots+=`<g><rect x="${x}" y="${y}" width="4.6" height="${202-y}" fill="#2a1030"/><rect class="sl" x="${x+.5}" y="${y+1}" width="3.6" height="3" fill="${['#ff4d6d','#4aa3ff','#7fe08f','#ffd24a','#c47bff'][i%5]}"/></g>`}
-  let cols='';[[80],[130],[258],[308]].forEach(([x])=>cols+=`<rect x="${x}" y="58" width="12" height="140" fill="url(#gtCol)"/><rect x="${x-2}" y="54" width="16" height="5" fill="url(#gtG)"/><rect x="${x-2}" y="194" width="16" height="5" fill="url(#gtG)"/>`);
-  let wins='';[[98,66,26,22],[98,98,26,72],[276,66,26,22],[276,98,26,72]].forEach(([x,y,w,h],i)=>wins+=`<rect x="${x-2}" y="${y-2}" width="${w+4}" height="${h+4}" fill="#3b2a18"/><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="url(#gtW)" opacity="${.8+Math.random()*.2}"/><path d="M${x+w/2} ${y}V${y+h}M${x} ${y+h/2}H${x+w}" stroke="#3b2a18" stroke-width="1.2"/><rect x="${x}" y="${y}" width="${w}" height="${h*.35}" fill="#fff" opacity=".07"/>`);
-  [[10,96],[10,126],[10,156],[38,96],[38,126],[38,156],[336,96],[336,126],[336,156],[364,96],[364,126],[364,156]].forEach(([x,y],i)=>wins+=`<rect x="${x}" y="${y}" width="20" height="20" rx="1.5" fill="${i%5===2?'#4a3a28':'url(#gtW)'}" opacity="${.7+Math.random()*.3}"/><path d="M${x+10} ${y}V${y+20}" stroke="#2a1a10" stroke-width="1"/>`);
-  let bulbs='';const bp=[];for(let x=114;x<=286;x+=10){bp.push([x,11],[x,39])}for(let y=19;y<=31;y+=6){bp.push([112,y],[288,y])}
-  bp.forEach(([x,y])=>bulbs+=`<circle class="gb" cx="${x}" cy="${y}" r="1.9" fill="#fff4c0"/>`);
-  let aw='';for(let i=0;i<8;i++)aw+=`<path d="M${150+i*12.5} 104H${162.5+i*12.5}L${163.5+i*12.5} 121Q${157+i*12.5} 124 ${151+i*12.5} 121Z" fill="${i%2?'#f1e3b8':'#b80e2a'}"/>`;
-  g.innerHTML=`<div class="stars">${stars}</div><div class="moon"></div>
+  let slots='';for(let i=0;i<22;i++){const x=166+i*3.2,y=168+(i%4)*3.5;slots+=`<g><rect x="${x}" y="${y}" width="2.7" height="${204-y}" fill="#2a1030"/><rect class="sl" x="${x+.3}" y="${y+1}" width="2.1" height="2.4" fill="${['#ff4d6d','#4aa3ff','#7fe08f','#ffd24a','#c47bff'][i%5]}"/></g>`}
+  let tw='';for(let r=0;r<9;r++)for(let c=0;c<39;c++){const x=42+c*8,y=60+r*4;if(y<56||(y>16&&y<56))continue;const on=Math.random()<.62;tw+=`<rect x="${x}" y="${y}" width="5" height="2.4" fill="${on?(Math.random()<.2?'#fff2c8':'#ffc46a'):'#10122a'}" opacity="${on?.55+Math.random()*.4:.9}"/>`}
+  let sky='';[[-90,70,42,'#0d0b22'],[-50,95,34,'#0a0a1c'],[-10,110,30,'#0d0b22'],[366,100,44,'#0a0a1c'],[404,78,38,'#0d0b22'],[440,120,50,'#0a0a1c']].forEach(([x,h,w,f],i)=>{sky+=`<rect x="${x}" y="${202-h}" width="${w}" height="${h}" fill="${f}"/>`;for(let k=0;k<22;k++)if(Math.random()<.5)sky+=`<rect x="${x+3+Math.random()*(w-8)}" y="${202-h+4+Math.random()*(h-10)}" width="2" height="2" fill="#ffd27a" opacity=".5"/>`;sky+=`<circle class="rb" cx="${x+w/2}" cy="${202-h-2}" r="1.3" fill="#ff3a3a"/>`});
+  let dl='';for(let x=60;x<=340;x+=9)dl+=`<circle cx="${x}" cy="111" r="1.8" fill="#fff3cf"/>`;
+  let pal=(x,sc)=>{let f='';for(let k=0;k<7;k++){const an=-80+k*27;f+=`<path d="M0 -58Q${14*Math.cos((an-90)*Math.PI/180)+ (k-3)*5} ${-70-Math.abs(k-3)*-2.5} ${(k-3)*10} ${-52+Math.abs(k-3)*5}Q${(k-3)*6} -64 0 -58Z" fill="#17301f"/><path d="M0 -58Q${(k-3)*6} -66 ${(k-3)*10} ${-52+Math.abs(k-3)*5}" stroke="#7fd08a" stroke-opacity=".3" fill="none" stroke-width=".6"/>`}return `<g transform="translate(${x} 203) scale(${sc})"><path d="M-2 0Q-1 -30 -2 -58H2Q1 -30 2 0Z" fill="#2a1d14"/><path d="M-2 0Q-1 -30 -2 -58H0Q-.5 -30 0 0Z" fill="#ffbf6a" opacity=".25"/><g class="pm">${f}</g></g>`};
+  g.innerHTML=`<div class="stars">${stars}</div><div class="moon"></div><div class="vig"></div>
   <div class="gtitle">Welcome to</div>
   <div class="gz"><svg viewBox="0 0 400 260" aria-label="Casino entrance">
     <defs>
     <linearGradient id="gtG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff1b0"/><stop offset=".55" stop-color="#d9a52f"/><stop offset="1" stop-color="#8a6a25"/></linearGradient>
-    <linearGradient id="gtB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a2a4e"/><stop offset=".6" stop-color="#241638"/><stop offset="1" stop-color="#1a0f2a"/></linearGradient>
-    <linearGradient id="gtCol" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7a6a58"/><stop offset=".35" stop-color="#e8dcc0"/><stop offset=".7" stop-color="#b8a888"/><stop offset="1" stop-color="#5a4a3a"/></linearGradient>
-    <linearGradient id="gtD" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8a5f18"/><stop offset=".5" stop-color="#f3d57a"/><stop offset="1" stop-color="#8a5f18"/></linearGradient>
-    <linearGradient id="gtW" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff0b8"/><stop offset="1" stop-color="#e8962a"/></linearGradient>
-    <radialGradient id="gtL" cx=".5" cy=".7" r=".8"><stop offset="0" stop-color="#fffbe8"/><stop offset=".45" stop-color="#ffd870"/><stop offset="1" stop-color="#d77c1c"/></radialGradient>
-    <linearGradient id="gtC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a0b20"/><stop offset="1" stop-color="#d11534"/></linearGradient>
+    <linearGradient id="gtT" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#101638"/><stop offset="1" stop-color="#1c1030"/></linearGradient>
+    <linearGradient id="gtCol" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4a3c30"/><stop offset=".3" stop-color="#e9dcc0"/><stop offset=".6" stop-color="#a99a7c"/><stop offset="1" stop-color="#3a2e24"/></linearGradient>
+    <linearGradient id="gtGl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a8"/><stop offset=".6" stop-color="#ffbf5a"/><stop offset="1" stop-color="#e0801f"/></linearGradient>
+    <radialGradient id="gtDoor" cx=".5" cy=".75" r=".9"><stop offset="0" stop-color="#ffffff"/><stop offset=".35" stop-color="#fff0b8"/><stop offset="1" stop-color="#f0a638"/></radialGradient>
+    <linearGradient id="gtCan" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a1220"/><stop offset="1" stop-color="#3a2a30"/></linearGradient>
+    <linearGradient id="gtC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a0a1c"/><stop offset="1" stop-color="#c81230"/></linearGradient>
     <linearGradient id="gtSh" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".4"/><stop offset=".4" stop-color="#fff" stop-opacity=".1"/><stop offset="1" stop-color="#000" stop-opacity=".45"/></linearGradient>
-    <linearGradient id="gtP" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c1228"/><stop offset="1" stop-color="#07040c"/></linearGradient>
-    <linearGradient id="gtS" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffdd88" stop-opacity=".55"/><stop offset="1" stop-color="#ffdd88" stop-opacity="0"/></linearGradient>
-    <linearGradient id="gtBm" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".28"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
-    <linearGradient id="gtRf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".5"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
-    <mask id="gtM"><rect x="0" y="203" width="400" height="57" fill="url(#gtRf)"/></mask>
-    <clipPath id="gtArch"><path d="M166 202V138A34 34 0 0 1 234 138V202Z"/></clipPath>
-    <filter id="gtBl"><feGaussianBlur stdDeviation="1.2"/></filter></defs>
-    <g class="beam" style="transform-origin:140px 60px"><polygon points="140,60 100,-200 180,-200" fill="url(#gtBm)"/></g>
-    <g class="beam b2" style="transform-origin:260px 60px"><polygon points="260,60 220,-200 300,-200" fill="url(#gtBm)"/></g>
-    <rect x="0" y="202" width="400" height="60" fill="url(#gtP)"/>
-    <g mask="url(#gtM)" filter="url(#gtBl)" opacity=".55"><use href="#gtBld" transform="translate(0 405) scale(1 -1)"/></g>
-    <polygon points="170,203 230,203 330,262 70,262" fill="url(#gtS)"/>
+    <linearGradient id="gtP" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#241a2c"/><stop offset=".25" stop-color="#120c18"/><stop offset="1" stop-color="#06040a"/></linearGradient>
+    <linearGradient id="gtS" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd27a" stop-opacity=".6"/><stop offset="1" stop-color="#ffd27a" stop-opacity="0"/></linearGradient>
+    <linearGradient id="gtHz" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff9a5a" stop-opacity="0"/><stop offset="1" stop-color="#ff9a5a" stop-opacity=".35"/></linearGradient>
+    <linearGradient id="gtBm" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".3"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <linearGradient id="gtRf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <mask id="gtM"><rect x="-200" y="203" width="800" height="70" fill="url(#gtRf)"/></mask>
+    <clipPath id="gtBay"><rect x="160" y="116" width="80" height="88"/></clipPath>
+    <filter id="gtGlow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="gtBl"><feGaussianBlur stdDeviation="1.6"/></filter></defs>
+    <rect x="-700" y="150" width="1800" height="53" fill="url(#gtHz)"/>
+    ${sky}
+    <g class="beam" style="transform-origin:120px 22px"><polygon points="120,22 80,-230 160,-230" fill="url(#gtBm)"/></g>
+    <g class="beam b2" style="transform-origin:280px 22px"><polygon points="280,22 240,-230 320,-230" fill="url(#gtBm)"/></g>
+    <rect x="-700" y="202" width="1800" height="400" fill="url(#gtP)"/>
     <g id="gtBld">
-    <rect x="4" y="82" width="68" height="118" fill="url(#gtB)" stroke="#8a6a25" stroke-width="1.5"/><rect x="328" y="82" width="68" height="118" fill="url(#gtB)" stroke="#8a6a25" stroke-width="1.5"/>
-    <rect x="0" y="78" width="76" height="6" fill="url(#gtG)"/><rect x="324" y="78" width="76" height="6" fill="url(#gtG)"/>
-    <rect x="66" y="52" width="268" height="148" fill="url(#gtB)" stroke="url(#gtG)" stroke-width="3"/>
-    <rect x="58" y="42" width="284" height="14" fill="url(#gtG)"/><rect x="58" y="56" width="284" height="4" fill="#000" opacity=".35"/>
-    ${wins}${cols}
-    <rect x="0" y="198" width="400" height="5" fill="url(#gtG)"/>
-    <rect x="148" y="108" width="104" height="94" rx="3" fill="#0b0613" stroke="url(#gtG)" stroke-width="3"/>
-    <path d="M166 202V138A34 34 0 0 1 234 138V202Z" fill="url(#gtL)"/>
-    <g clip-path="url(#gtArch)"><ellipse cx="200" cy="132" rx="16" ry="3" fill="#fff8d8"/><path d="M186 132L200 150L214 132" fill="none" stroke="#fff8d8" stroke-width=".7" opacity=".7"/>${slots}<rect x="166" y="104" width="68" height="100" fill="#ffc94d" opacity=".12"/></g>
-    <g class="dl"><path d="M166 202V138A34 34 0 0 1 200 104V202Z" fill="url(#gtD)" stroke="#6e5214" stroke-width="1.5"/><rect x="171" y="146" width="24" height="46" rx="2" fill="#5a3a90" opacity=".4"/><rect x="171" y="146" width="24" height="12" fill="#fff" opacity=".18"/><rect x="193" y="168" width="2" height="12" fill="#fff6c8"/></g>
-    <g class="dr"><path d="M234 202V138A34 34 0 0 0 200 104V202Z" fill="url(#gtD)" stroke="#6e5214" stroke-width="1.5"/><rect x="205" y="146" width="24" height="46" rx="2" fill="#5a3a90" opacity=".4"/><rect x="205" y="146" width="24" height="12" fill="#fff" opacity=".18"/><rect x="205" y="168" width="2" height="12" fill="#fff6c8"/></g>
-    ${aw}<rect x="148" y="101" width="104" height="4" fill="url(#gtG)"/>
-    <rect x="108" y="8" width="184" height="34" rx="7" fill="#2a0612" stroke="url(#gtG)" stroke-width="2.5"/>
-    <text class="neon" x="200" y="32" text-anchor="middle" font-family="Bodoni Moda,Georgia,serif" font-style="italic" font-weight="700" font-size="22" fill="#ffe9a8">Gilt Room</text>${bulbs}
-    <g fill="#ffe08a"><rect x="75" y="170" width="3.5" height="30"/><circle cx="76.7" cy="166" r="6"/><rect x="321" y="170" width="3.5" height="30"/><circle cx="322.7" cy="166" r="6"/></g>
-    <g opacity=".3" fill="#ffd24a"><circle cx="76.7" cy="166" r="16"/><circle cx="322.7" cy="166" r="16"/></g>
+      <rect x="40" y="14" width="320" height="94" fill="url(#gtT)"/>${tw}
+      <rect x="40" y="14" width="320" height="3" fill="#ffd27a" opacity=".8"/>
+      <g filter="url(#gtGlow)"><rect x="39" y="14" width="2" height="94" fill="#ffd27a"/><rect x="359" y="14" width="2" height="94" fill="#ffd27a"/><rect x="100" y="14" width="1.2" height="42" fill="#ffb347" opacity=".7"/><rect x="299" y="14" width="1.2" height="42" fill="#ffb347" opacity=".7"/></g>
+      <rect x="106" y="22" width="188" height="34" rx="4" fill="#12040a" stroke="#c89a38" stroke-width="1.5"/>
+      <g filter="url(#gtGlow)"><text x="200" y="47" text-anchor="middle" font-family="Bodoni Moda,Georgia,serif" font-style="italic" font-weight="700" font-size="26" fill="#ffe9a8">Gilt Room</text></g>
+      <g filter="url(#gtGlow)">${[...Array(18)].map((_,i)=>`<circle class="gb" cx="${112+i*10.2}" cy="25" r="1.4" fill="#fff4c0"/><circle class="gb" cx="${112+i*10.2}" cy="53" r="1.4" fill="#fff4c0"/>`).join('')}</g>
+      <rect x="64" y="108" width="272" height="96" fill="url(#gtGl)"/>
+      <g opacity=".9"><path d="M92 120V190M122 120V190M278 120V190M308 120V190" stroke="#5a3a18" stroke-width="1.2"/><path d="M64 150H160M240 150H336" stroke="#5a3a18" stroke-width="1"/></g>
+      <g opacity=".5">${[...Array(10)].map((_,i)=>`<ellipse cx="${80+i*27}" cy="126" rx="6" ry="1.8" fill="#fff8d8"/>`).join('')}</g>
+      <g opacity=".7">${[...Array(18)].map((_,i)=>{const x=68+i*14.8+(i>6&&i<11?80:0);return (x>156&&x<244)?'':`<rect x="${x}" y="${176+(i%3)*3}" width="7" height="${28-(i%3)*3}" fill="#3a1a38"/><rect class="sl" x="${x+1}" y="${178+(i%3)*3}" width="5" height="2.5" fill="${['#ff4d6d','#4aa3ff','#7fe08f','#ffd24a','#c47bff'][i%5]}"/>`}).join('')}</g>
+      <rect x="58" y="96" width="284" height="14" fill="url(#gtCan)"/><rect x="58" y="94" width="284" height="3" fill="#ffe9a8"/><g filter="url(#gtGlow)"><rect x="58" y="94" width="284" height="1.6" fill="#fff3cf"/></g>
+      <g filter="url(#gtGlow)">${dl}</g>
+      ${[70,120,274,324].map(x=>`<rect x="${x}" y="110" width="10" height="92" fill="url(#gtCol)"/><rect x="${x-1.5}" y="108" width="13" height="4" fill="#cdbb90"/><rect x="${x-1.5}" y="199" width="13" height="4" fill="#cdbb90"/><g filter="url(#gtBl)"><ellipse cx="${x+5}" cy="203" rx="11" ry="3" fill="#ffc46a" opacity=".8"/></g>`).join('')}
+      <rect x="160" y="116" width="80" height="88" fill="url(#gtDoor)"/>
+      <g clip-path="url(#gtBay)"><g filter="url(#gtBl)"><ellipse cx="200" cy="134" rx="16" ry="4" fill="#fff"/><path d="M188 134L200 156L212 134" stroke="#fff" stroke-width="1" fill="none"/></g>${slots}</g>
+      <rect x="157" y="112" width="86" height="6" fill="#2a2018"/><rect x="157" y="112" width="86" height="1.5" fill="#ffe9a8"/>
+      <g class="dl"><rect x="160" y="118" width="40" height="86" fill="#9fc6e8" opacity=".16" stroke="#3a2a18" stroke-width="2.2"/><path d="M160 118H200V204H160Z" fill="none" stroke="#c89a38" stroke-width=".8" opacity=".6"/><rect x="160" y="118" width="40" height="20" fill="#fff" opacity=".12"/><rect x="194" y="158" width="2.4" height="16" rx="1" fill="#e8c56a"/></g>
+      <g class="dr"><rect x="200" y="118" width="40" height="86" fill="#9fc6e8" opacity=".16" stroke="#3a2a18" stroke-width="2.2"/><path d="M200 118H240V204H200Z" fill="none" stroke="#c89a38" stroke-width=".8" opacity=".6"/><rect x="200" y="118" width="40" height="20" fill="#fff" opacity=".12"/><rect x="204" y="158" width="2.4" height="16" rx="1" fill="#e8c56a"/></g>
+      <rect x="0" y="203" width="400" height="2" fill="#2a2030"/>
     </g>
-    <polygon points="188,203 212,203 266,262 134,262" fill="url(#gtC)"/><polygon points="188,203 191,203 146,262 134,262" fill="#e8b84a" opacity=".55"/><polygon points="209,203 212,203 266,262 254,262" fill="#e8b84a" opacity=".55"/>
-    <g stroke="#c8102e" stroke-width="1.6" fill="none" stroke-linecap="round"><path d="M178 213Q175 218 171 221M171 221Q166 228 160 234M160 234Q153 242 146 250"/><path d="M222 213Q225 218 229 221M229 221Q234 228 240 234M240 234Q247 242 254 250"/></g>
-    <g fill="url(#gtG)"><rect x="177" y="208" width="2.4" height="6"/><rect x="170" y="218" width="3" height="8"/><rect x="159" y="231" width="3.6" height="10"/><rect x="145" y="246" width="4.4" height="12"/><rect x="220.6" y="208" width="2.4" height="6"/><rect x="227" y="218" width="3" height="8"/><rect x="237.4" y="231" width="3.6" height="10"/><rect x="250.6" y="246" width="4.4" height="12"/></g>
+    ${pal(40,1.35)}${pal(362,1.35)}${pal(14,1)}${pal(388,1)}
+    <g mask="url(#gtM)" filter="url(#gtBl)" opacity=".6"><use href="#gtBld" transform="translate(0 406) scale(1 -1)"/></g>
+    <polygon points="172,204 228,204 330,262 70,262" fill="url(#gtS)"/>
+    <polygon points="186,204 214,204 270,262 130,262" fill="url(#gtC)"/><polygon points="186,204 189,204 144,262 130,262" fill="#e8b84a" opacity=".6"/><polygon points="211,204 214,204 270,262 256,262" fill="#e8b84a" opacity=".6"/>
+    <g stroke="#b80e2a" stroke-width="1.5" fill="none" stroke-linecap="round"><path d="M176 214Q173 220 169 224M169 224Q164 231 158 237M158 237Q151 244 144 252"/><path d="M224 214Q227 220 231 224M231 224Q236 231 242 237M242 237Q249 244 256 252"/></g>
+    <g fill="url(#gtG)"><rect x="175" y="209" width="2.4" height="6"/><rect x="168" y="219" width="3" height="8"/><rect x="157" y="232" width="3.6" height="10"/><rect x="143" y="247" width="4.4" height="12"/><rect x="222.6" y="209" width="2.4" height="6"/><rect x="229" y="219" width="3" height="8"/><rect x="239.4" y="232" width="3.6" height="10"/><rect x="252.6" y="247" width="4.4" height="12"/></g>
+    <g filter="url(#gtGlow)" opacity=".9"><circle cx="177" cy="208" r="1.4" fill="#ffe9a8"/><circle cx="223" cy="208" r="1.4" fill="#ffe9a8"/></g>
     ${ppl}
   </svg></div>
   <button class="go" id="gatego">Start</button><div class="flood"></div>`;
